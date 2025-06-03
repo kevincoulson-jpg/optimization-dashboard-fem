@@ -1,0 +1,76 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            .container { max-width: 800px; margin: 0 auto; }
+            .plot-section { margin-bottom: 20px; }
+            .plot-header {
+                background-color: #f0f0f0;
+                padding: 10px;
+                cursor: pointer;
+                border-radius: 4px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .plot-header:hover { background-color: #e0e0e0; }
+            .plot-content { 
+                display: none;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 0 0 4px 4px;
+            }
+            .plot-content.active { display: block; }
+            iframe { width: 100%; height: 520px; border: none; }  /* Adjusted height */
+            .toggle-icon { font-size: 20px; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="plot-section">
+                <div class="plot-header" onclick="togglePlot('objectives')">
+                    <span>Objectives vs Iteration</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div id="objectives" class="plot-content">
+                    <iframe src="subobjectives_vs_iteration.html"></iframe>
+                </div>
+            </div>
+            
+            <div class="plot-section">
+                <div class="plot-header" onclick="togglePlot('pareto')">
+                    <span>Pareto Fronts</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div id="pareto" class="plot-content">
+                    <iframe src="pareto_fronts.html"></iframe>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            function togglePlot(id) {
+                const content = document.getElementById(id);
+                const header = content.previousElementSibling;
+                const icon = header.querySelector('.toggle-icon');
+                
+                if (content.classList.contains('active')) {
+                    content.classList.remove('active');
+                    icon.textContent = '▼';
+                } else {
+                    content.classList.add('active');
+                    icon.textContent = '▲';
+                }
+            }
+            
+            // Open both plots by default
+            document.addEventListener('DOMContentLoaded', function() {
+                togglePlot('objectives');
+                togglePlot('pareto');
+            });
+        </script>
+    </body>
+    </html>
+    
